@@ -2,7 +2,6 @@ import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
 import { useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 import { Container, ErrorMessage, StyledLink } from "./style";
 
@@ -28,7 +27,7 @@ export default function SignInPage() {
 
         setLoading(true);
 
-        const promise = axios.post('http://localhost:5000/login', {
+        const promise = axios.post('http://localhost:5000/sign-in', {
             email,
             password,
         });

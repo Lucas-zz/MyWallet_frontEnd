@@ -4,6 +4,7 @@ import UserContext from "./contexts/UserContext";
 import { useState } from "react";
 
 import SignInPage from './components/SignInPage';
+import SignUpPage from "./components/SignUpPage";
 
 export default function App() {
     const [token, setToken] = useState('');
@@ -16,6 +17,7 @@ export default function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<SignInPage />} />
+                    <Route path='/cadastro' element={<SignUpPage />} />
                 </Routes>
             </BrowserRouter>
         </UserContext.Provider>
