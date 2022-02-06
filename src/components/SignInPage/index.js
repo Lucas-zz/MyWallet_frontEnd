@@ -12,7 +12,7 @@ import Input from '../generic/Input';
 
 
 export default function SignInPage() {
-    const { setUser, setToken, isLoading, setLoading } = useContext(UserContext);
+    const { setUser, token, setToken, isLoading, setLoading } = useContext(UserContext);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -22,32 +22,30 @@ export default function SignInPage() {
 
     const navigate = useNavigate();
 
-    function handleLogin(event) {
+    async function handleLogin(event) {
         event.preventDefault();
 
         setLoading(true);
 
-        const promise = axios.post('http://localhost:5000/sign-in', {
-            email,
-            password,
-        });
+        try {
+            const response = await axios.post('http://localhost:5000/sign-in', {
+                email,
+                password,
+            });
 
-        promise.then(response => {
             setLoading(true);
-            setError(false)
+            setError(false);
 
-            setUser(response.data);
             setToken(response.data.token);
+            setUser(response.data);
 
             navigate('/principal');
-        });
-        promise.catch(error => {
+
+        } catch (error) {
             setLoading(false);
             setError(true)
-            setErrorMessage(error.response.data.message);
-
-            console.log(error.response);
-        });
+            setErrorMessage(error.response.data);
+        }
     }
 
     return (

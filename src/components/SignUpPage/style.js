@@ -35,12 +35,13 @@ const ErrorMessage = styled.span`
     justify-content: center;
     align-items: center;
 
-    margin: 0 10px;
+    margin-bottom: 15px;
 
     font-size: 10px;
+    font-weight: 700;
     line-height: 17px;
 
-    color: #CC2828;
+    color: #FFF;
 `;
 
 export {

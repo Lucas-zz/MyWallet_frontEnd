@@ -13,7 +13,7 @@ import Input from '../generic/Input';
 export default function SignUpPage() {
     const { isLoading, setLoading } = useContext(UserContext);
 
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [matchingPassword, setMatchingPassword] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
     const [error, setError] = useState(false);
 
@@ -23,37 +23,43 @@ export default function SignUpPage() {
         name: '',
         email: '',
         password: '',
+        confirmPassword: '',
     });
 
-    function handleSignUp(event) {
+    async function handleSignUp(event) {
         event.preventDefault();
-
         setLoading(true);
 
-        const promise = axios.post('http://localhost:5000/sign-up', {
-            ...formData
-        });
+        if (formData.password !== formData.confirmPassword && formData.confirmPassword !== '') {
+            setMatchingPassword(false);
+            setErrorMessage('As senha não coincidem!');
+            setError(true);
+            setLoading(false);
+            return;
+        }
 
-        promise.then(() => {
+        try {
+            await axios.post('http://localhost:5000/sign-up', {
+                name: formData.name,
+                email: formData.email,
+                password: formData.password,
+            });
+
             setLoading(false);
             navigate('/');
-        });
 
-        promise.catch(error => {
-            setLoading(true);
-
-            if (false) {
-                // VALIDAÇÃO DE ERROS, ASSIM COMO A CONFIRMAÇÃO DA SENHA
-                setErrorMessage('')
-            }
+        } catch (error) {
+            setLoading(false);
 
             setError(true);
-            console.log(error.response);
-        });
+            setErrorMessage(error.response.data)
+            console.log(error.response.data);
+        };
     }
 
     function handleInputChange(event) {
         setFormData({ ...formData, [event.target.name]: event.target.value });
+        setMatchingPassword(true);
     }
 
     return (
@@ -63,9 +69,9 @@ export default function SignUpPage() {
                 <Input
                     isLoading={isLoading}
                     disabled={isLoading}
-                    type="text"
                     value={formData.name}
                     onChange={handleInputChange}
+                    type="text"
                     name="name"
                     placeholder="Nome"
                     required
@@ -73,9 +79,9 @@ export default function SignUpPage() {
                 <Input
                     isLoading={isLoading}
                     disabled={isLoading}
-                    type="email"
                     value={formData.email}
                     onChange={handleInputChange}
+                    type="email"
                     name="email"
                     placeholder="E-mail"
                     required
@@ -83,9 +89,9 @@ export default function SignUpPage() {
                 <Input
                     isLoading={isLoading}
                     disabled={isLoading}
-                    type="password"
                     value={formData.password}
                     onChange={handleInputChange}
+                    type="password"
                     name="password"
                     placeholder="Senha"
                     required
@@ -93,10 +99,10 @@ export default function SignUpPage() {
                 <Input
                     isLoading={isLoading}
                     disabled={isLoading}
+                    value={formData.confirmPassword}
+                    onChange={handleInputChange}
                     type="password"
-                    value={confirmPassword}
-                    onChange={event => setConfirmPassword(event.target.value)}
-                    name="image"
+                    name="confirmPassword"
                     placeholder="Confirme a senha"
                     required
                 />
