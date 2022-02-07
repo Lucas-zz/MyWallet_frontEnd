@@ -3,11 +3,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import UserContext from "./contexts/UserContext";
 import { useState } from "react";
 
-import SignInPage from './components/SignInPage';
-import SignUpPage from "./components/SignUpPage";
-import ExtractPage from "./components/ExtractPage/index";
-import PlusValuePage from "./components/PlusValuePage";
-import MinusValuePage from "./components/MinusValuePage";
+import SignInPage from './pages/SignInPage';
+import SignUpPage from "./pages/SignUpPage";
+import ExtractPage from "./pages/ExtractPage/index";
+import PlusValuePage from "./pages/PlusValuePage";
+import MinusValuePage from "./pages/MinusValuePage";
 
 export default function App() {
     const [token, setToken] = useState('');
