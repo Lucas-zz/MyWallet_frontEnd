@@ -1,4 +1,3 @@
-import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
 import { useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +8,7 @@ import UserContext from "../../contexts/UserContext";
 import Logo from '../../components/Logo';
 import Button from '../../components/generic/Button';
 import Input from '../../components/generic/Input';
+import api from "../../service/api";
 
 
 export default function SignInPage() {
@@ -26,18 +26,14 @@ export default function SignInPage() {
         event.preventDefault();
 
         setLoading(true);
-
         try {
-            const response = await axios.post('http://localhost:5000/sign-in', {
-                email,
-                password,
-            });
+            const promise = await api.signIn({ password: password, email: email })
 
             setLoading(true);
             setError(false);
 
-            setToken(response.data.token);
-            setUser(response.data);
+            setToken(promise.data.token);
+            setUser(promise.data);
             navigate('/principal');
 
         } catch (error) {

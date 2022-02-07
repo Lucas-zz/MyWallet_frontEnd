@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { ThreeDots } from 'react-loader-spinner';
 import { useContext, useState } from 'react';
 
@@ -8,6 +7,7 @@ import UserContext from '../../contexts/UserContext';
 import Button from '../../components/generic/Button';
 import Input from '../../components/generic/Input';
 import { useNavigate } from 'react-router-dom';
+import api from '../../service/api';
 
 export default function PlusValuePage() {
     const { token, isLoading, setLoading } = useContext(UserContext);
@@ -32,11 +32,7 @@ export default function PlusValuePage() {
         setLoading(true);
 
         try {
-            await axios.post('http://localhost:5000/entry', newEntry, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
+            await api.postEntry(newEntry, token);
 
             setTimeout(() => {
                 setLoading(false);

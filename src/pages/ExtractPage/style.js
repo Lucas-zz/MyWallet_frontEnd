@@ -50,6 +50,7 @@ const ExtractContainer = styled.div`
     height: 446px;
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
@@ -103,15 +104,29 @@ const Entry = styled.div`
             font-size: 16px;
             font-weight: 400;
             line-height: 18.78px;
+
             color: #000;
         }
     }
     div:last-of-type{
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 18.78px;
+        span:first-of-type {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 18.78px;
 
-        color: ${props => props.isPositive === 'plus' ? '#03AC00' : '#C70000'};
+            padding-right: 12px;
+
+            color: ${props => props.isPositive === 'plus' ? '#03AC00' : '#C70000'};
+        }
+
+        span:last-of-type {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 18.78px;
+
+            color: #C6C6C6;
+        }
+
     }
 
 `;

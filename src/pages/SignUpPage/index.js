@@ -1,4 +1,3 @@
-import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
 import { useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +8,7 @@ import UserContext from '../../contexts/UserContext';
 import Logo from '../../components/Logo';
 import Button from '../../components/generic/Button';
 import Input from '../../components/generic/Input';
+import api from "../../service/api";
 
 export default function SignUpPage() {
     const { isLoading, setLoading } = useContext(UserContext);
@@ -37,11 +37,11 @@ export default function SignUpPage() {
         }
 
         try {
-            await axios.post('http://localhost:5000/sign-up', {
+            await api.signUp({
                 name: formData.name,
                 email: formData.email,
                 password: formData.password,
-            });
+            })
 
             setLoading(false);
             navigate('/');
@@ -51,7 +51,6 @@ export default function SignUpPage() {
 
             setError(true);
             setErrorMessage(error.response.data)
-            console.log(error.response.data);
         };
     }
 

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import dayjs from 'dayjs';
 import { ThreeDots } from 'react-loader-spinner';
 import { useContext, useEffect, useState } from 'react';
@@ -10,6 +9,7 @@ import ExitSymbol from '../../assets/img/exit_symbol.svg';
 import AddSymbol from '../../assets/img/add_symbol.svg';
 import RemoveSymbol from '../../assets/img/remove_symbol.svg';
 import UserContext from '../../contexts/UserContext';
+import api from '../../service/api';
 let sum = 0;
 
 export default function ExtractPage() {
@@ -29,7 +29,7 @@ export default function ExtractPage() {
         setExtract([]);
         setLoading(true);
         handleExtractInfo(token);
-        setLoading(false);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(handleTotal, [extract])
@@ -60,17 +60,29 @@ export default function ExtractPage() {
     async function handleExtractInfo(auth) {
         setLoading(true)
         try {
-            const promise = await axios.get('http://localhost:5000/entries', {
-                headers: {
-                    Authorization: `Bearer ${auth}`
-                }
-            });
+            const promise = await api.getEntries(auth);
 
             setExtract(promise.data.entries);
+            setLoading(false);
         } catch (error) {
-            console.log(error);
+            console.error(error);
             setLoading(false);
             navigate('/');
+        }
+    }
+
+    async function handleEntryDelete(id, token) {
+        setLoading(true);
+        if (window.confirm('Você realmente gostaria de excluir esse registro?')) {
+            try {
+                await api.deleteEntry(id, token);
+
+                await handleExtractInfo(token);
+                setLoading(false);
+            } catch (error) {
+                setLoading(false);
+                console.error(error);
+            }
         }
     }
 
@@ -81,18 +93,23 @@ export default function ExtractPage() {
                 <ExitButton onClick={() => navigate('/')}><img src={ExitSymbol} alt='exit_button_symbol' /></ExitButton>
             </Header>
             <ExtractContainer>
-                {isLoading && <span><ThreeDots color='#8C11BE' height={25} width={150} /></span>}
                 {extract.length === 0 && !isLoading && <span>Não há registros de <br /> entrada ou saída</span>}
-                {extract.length !== 0 &&
+                {extract.length === 0 && isLoading && <span><ThreeDots color='#8C11BE' height={25} width={150} /></span>}
+                {extract.length !== 0 && isLoading && <span><ThreeDots color='#8C11BE' height={25} width={150} /></span>}
+
+                {extract.length !== 0 && !isLoading &&
                     <>
                         <EntriesContainer>
                             {extract.map((element, id) =>
-                                <Entry isPositive={element.type} key={id}>
+                                <Entry isPositive={element.type} key={id} id={element._id}>
                                     <div>
                                         <span className='date'>{dayjs(element.date).format('DD/MM')}</span>
                                         <span className='description'>{element.description}</span>
                                     </div>
-                                    <div className='value'>{(parseFloat(element.value)).toFixed(2).replace('.', ',')}</div>
+                                    <div className='value'>
+                                        <span>{(parseFloat(element.value)).toFixed(2).replace('.', ',')}</span>
+                                        <span onClick={async () => await handleEntryDelete(element._id, token)}>x</span>
+                                    </div>
                                 </Entry>
                             )}
                         </EntriesContainer>
