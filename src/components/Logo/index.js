@@ -1,4 +1,4 @@
-import Logo from '../../../assets/img/MyWallet.png';
+import Logo from '../../assets/img/MyWallet.png';
 import { Container } from './style';
 
 export default function SignLogo() {
