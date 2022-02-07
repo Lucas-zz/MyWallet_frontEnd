@@ -12,7 +12,7 @@ import Input from '../generic/Input';
 
 
 export default function SignInPage() {
-    const { setUser, token, setToken, isLoading, setLoading } = useContext(UserContext);
+    const { user, setUser, setToken, isLoading, setLoading } = useContext(UserContext);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -38,7 +38,6 @@ export default function SignInPage() {
 
             setToken(response.data.token);
             setUser(response.data);
-
             navigate('/principal');
 
         } catch (error) {
@@ -46,6 +45,7 @@ export default function SignInPage() {
             setError(true)
             setErrorMessage(error.response.data);
         }
+        setLoading(false);
     }
 
     return (
@@ -77,7 +77,10 @@ export default function SignInPage() {
                     {isLoading ? <ThreeDots color='#FFF' height={13} width={100} /> : 'Entrar'}
                 </Button>
             </form>
-            <StyledLink to='/cadastro'>Primeira vez? Cadastre-se!</StyledLink>
+            <StyledLink to='/cadastro'>
+                <span>Primeira vez?</span>
+                <u>Cadastre-se!</u>
+            </StyledLink>
         </Container>
     );
 }

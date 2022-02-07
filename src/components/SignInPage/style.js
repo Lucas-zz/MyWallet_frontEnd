@@ -28,6 +28,10 @@ const StyledLink = styled(Link)`
     line-height: 17.61px;
 
     color: #FFF;
+
+    span {
+        padding-right: 5px;
+    }
 `;
 
 const ErrorMessage = styled.span`

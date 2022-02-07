@@ -13,7 +13,6 @@ import Input from '../generic/Input';
 export default function SignUpPage() {
     const { isLoading, setLoading } = useContext(UserContext);
 
-    const [matchingPassword, setMatchingPassword] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
     const [error, setError] = useState(false);
 
@@ -31,7 +30,6 @@ export default function SignUpPage() {
         setLoading(true);
 
         if (formData.password !== formData.confirmPassword && formData.confirmPassword !== '') {
-            setMatchingPassword(false);
             setErrorMessage('As senha não coincidem!');
             setError(true);
             setLoading(false);
@@ -59,7 +57,6 @@ export default function SignUpPage() {
 
     function handleInputChange(event) {
         setFormData({ ...formData, [event.target.name]: event.target.value });
-        setMatchingPassword(true);
     }
 
     return (
@@ -111,7 +108,10 @@ export default function SignUpPage() {
                     {isLoading ? <ThreeDots type="ThreeDots" color="#FFF" height={13} width={100} /> : "Cadastrar"}
                 </Button>
             </form>
-            <StyledLink to="/">Já tem uma conta? Entre agora!</StyledLink>
+            <StyledLink to="/">
+                <span>Já tem uma conta?</span>
+                <u>Entre agora!</u>
+            </StyledLink>
         </Container >
     );
 }
