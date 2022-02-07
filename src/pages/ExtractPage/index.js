@@ -54,9 +54,7 @@ export default function ExtractPage() {
         } else {
             setType('minus');
         }
-
-        setTotal(sum);
-
+        setTotal(sum.replace('.', ','));
     };
 
     async function handleExtractInfo(auth) {

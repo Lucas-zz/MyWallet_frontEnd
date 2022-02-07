@@ -5,16 +5,16 @@ import { useContext, useState } from 'react';
 import { Container, ErrorMessage, Header, Title } from './style';
 
 import UserContext from '../../contexts/UserContext';
-import Button from '../generic/Button';
-import Input from '../generic/Input';
+import Button from '../../components/generic/Button';
+import Input from '../../components/generic/Input';
 import { useNavigate } from 'react-router-dom';
 
-export default function PlusValuePage() {
+export default function MinusValuePage() {
     const { token, isLoading, setLoading } = useContext(UserContext);
 
     const [newEntry, setNewEntry] = useState({
         value: '',
-        type: 'plus',
+        type: 'minus',
         description: '',
     })
 
@@ -55,7 +55,7 @@ export default function PlusValuePage() {
     return (
         <Container>
             <Header>
-                <Title>Nova entrada</Title>
+                <Title>Nova saída</Title>
             </Header>
             <form onSubmit={handleSubmit}>
                 <Input
@@ -80,7 +80,7 @@ export default function PlusValuePage() {
                 {error && <ErrorMessage>{errorMessage}</ErrorMessage>}
 
                 <Button isLoading={isLoading} disabled={isLoading} type='submit'>
-                    {isLoading ? <ThreeDots color='#FFF' height={13} width={100} /> : 'Salvar Entrada'}
+                    {isLoading ? <ThreeDots color='#FFF' height={13} width={100} /> : 'Salvar saída'}
                 </Button>
 
             </form>

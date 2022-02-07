@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { Container, ErrorMessage, StyledLink } from "./style";
 
-import UserContext from "../../contexts/UserContext";
-import Logo from '../generic/Logo';
-import Button from '../generic/Button';
-import Input from '../generic/Input';
+import UserContext from '../../contexts/UserContext';
+import Logo from '../../components/generic/Logo';
+import Button from '../../components/generic/Button';
+import Input from '../../components/generic/Input';
 
 export default function SignUpPage() {
     const { isLoading, setLoading } = useContext(UserContext);
