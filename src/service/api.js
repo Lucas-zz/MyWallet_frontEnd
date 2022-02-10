@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:5000';
+const BASE_URL = 'https://my-wallet-datab.herokuapp.com';
 
 function createHeaders(token) {
     return { headers: { Authorization: `Bearer ${token}` } };
