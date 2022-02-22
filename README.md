@@ -42,7 +42,6 @@ This app has the following features:
   <img style='margin: 5px;' src='https://img.shields.io/badge/styled-components%20-%2320232a.svg?&style=for-the-badge&color=b8679e&logo=styled-components&logoColor=%3a3a3a'>
   <img style='margin: 5px;' src='https://img.shields.io/badge/react_dayjs%20-%2320232a.svg?&style=for-the-badge&color=fe5f4c&logo=react&logoColor=%FE5F4C'>
   <img style='margin: 5px;' src="https://img.shields.io/badge/react_router%20-%2320232a.svg?&style=for-the-badge&logo=react&logoColor=%2361DAFB">
-  <img style='margin: 5px;' src='https://img.shields.io/badge/react_circular_progressbar%20-%2320232a.svg?&style=for-the-badge&color=3E98C7&logo=react&logoColor=%3E98C7'>
 </p>
 
 ### My workspace
