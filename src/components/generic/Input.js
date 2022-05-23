@@ -7,7 +7,7 @@ const Input = styled.input`
     font-size: 20px;
     line-height: 23.48px;
 
-    background-color: ${props => props.isLoading ? '##F2F2F2' : '#FFF'};
+    background-color: ${props => props.isLoading ? '#F2F2F2' : '#FFF'};
 
     padding: 15px;
     margin-bottom: 13px;
